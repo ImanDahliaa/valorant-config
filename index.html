@@ -276,11 +276,69 @@
         }
 
         .crosshair-dot .dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             background: #00e5ff;
             border-radius: 50%;
             box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        }
+
+        .crosshair-dot .crosshair-preview-shape {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .crosshair-preview-shape .bar {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 2px;
+        }
+
+        .crosshair-preview-shape .bar-top {
+            width: 2px;
+            height: 12px;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .crosshair-preview-shape .bar-bottom {
+            width: 2px;
+            height: 12px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .crosshair-preview-shape .bar-left {
+            width: 12px;
+            height: 2px;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .crosshair-preview-shape .bar-right {
+            width: 12px;
+            height: 2px;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .crosshair-preview-shape .center-dot {
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .crosshair-meta {
@@ -290,6 +348,19 @@
 
         .crosshair-meta strong {
             color: #e8edf5;
+        }
+
+        .crosshair-name {
+            display: inline-block;
+            background: rgba(255, 70, 120, 0.12);
+            color: #ff4d7a;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.8rem;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 70, 120, 0.15);
+            letter-spacing: 0.5px;
+            margin-left: 0.5rem;
         }
 
         /* ----- KEYBINDS (screenshots) ----- */
@@ -309,12 +380,13 @@
             aspect-ratio: 16 / 10;
             display: flex;
             flex-direction: column;
+            cursor: pointer;
         }
 
         .keybind-item:hover {
-            border-color: rgba(255, 70, 120, 0.2);
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 70, 120, 0.3);
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(255, 70, 120, 0.15);
         }
 
         .keybind-item img {
@@ -323,6 +395,7 @@
             object-fit: cover;
             display: block;
             background: #141a22;
+            pointer-events: none;
         }
 
         .keybind-item .label {
@@ -332,6 +405,77 @@
             color: #6b7a93;
             background: rgba(0, 0, 0, 0.3);
             border-top: 1px solid rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+        }
+
+        /* ----- LIGHTBOX OVERLAY ----- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+            object-fit: contain;
+        }
+
+        .lightbox-content .lightbox-label {
+            color: #8892a8;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: #ffffff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: none;
+            border: none;
+            padding: 0 10px;
+            opacity: 0.7;
+        }
+
+        .lightbox-close:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+            color: #ff4d7a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* ----- FOOTER ----- */
@@ -409,6 +553,14 @@
             .footer {
                 flex-direction: column;
                 text-align: center;
+            }
+            .lightbox-close {
+                top: 10px;
+                right: 10px;
+                font-size: 2rem;
+            }
+            .lightbox-content img {
+                max-height: 70vh;
             }
         }
 
@@ -551,18 +703,26 @@
             <div>
                 <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6b7a93; margin-bottom: 0.3rem;">
                     <i class="fas fa-code" style="margin-right: 6px;"></i> Crosshair Code
+                    <span class="crosshair-name">Vasto f0rsaken</span>
                 </div>
                 <div class="crosshair-code">
-                    0;p;0;c;1;s;1;P;c;1;u;F88CCCFF;o;0.22;m;1;0t;1;0l;3;0v;3;0o;1;0a;1;0f;0;1b;0;A;c;7;u;F88CCCFF;h;0;d;1;0b;0;1o;0;1a;1;1m;0;1f;0;S;b;1;c;8;t;F88CCCFF;o;1
+                    0;c;1;s;1;P;c;8;u;000000FF;o;1;b;1;f;0;m;1;0t;1;0l;1;0v;1;0o;2;0a;0;0f;0;1b;0;S;c;0;s;1.0;o;1
                 </div>
             </div>
             <div class="crosshair-preview">
                 <div class="crosshair-dot">
-                    <div class="dot"></div>
+                    <div class="crosshair-preview-shape">
+                        <div class="bar bar-top"></div>
+                        <div class="bar bar-bottom"></div>
+                        <div class="bar bar-left"></div>
+                        <div class="bar bar-right"></div>
+                        <div class="center-dot"></div>
+                    </div>
                 </div>
                 <div class="crosshair-meta">
-                    <div><strong>Color:</strong> <span style="color: #00e5ff;">Cyan</span></div>
-                    <div><strong>Style:</strong> Dot + Cross</div>
+                    <div><strong>Name:</strong> <span style="color: #ff4d7a;">Vasto f0rsaken</span></div>
+                    <div><strong>Color:</strong> <span style="color: #ffffff;">White</span></div>
+                    <div><strong>Style:</strong> Cross + Dot</div>
                     <div><strong>Outline:</strong> On</div>
                 </div>
             </div>
@@ -599,32 +759,32 @@
             <span class="line"></span>
         </div>
 
-        <div class="keybinds-grid">
-            <div class="keybind-item">
+        <div class="keybinds-grid" id="keybindsGrid">
+            <div class="keybind-item" data-src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/1.png" data-label="Keybind 1">
                 <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/1.png" alt="Keybind 1" loading="lazy" onerror="this.style.display='none'" />
                 <div class="label">Keybind 1</div>
             </div>
-            <div class="keybind-item">
+            <div class="keybind-item" data-src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/2.png" data-label="Keybind 2">
                 <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/2.png" alt="Keybind 2" loading="lazy" onerror="this.style.display='none'" />
                 <div class="label">Keybind 2</div>
             </div>
-            <div class="keybind-item">
+            <div class="keybind-item" data-src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/3.png" data-label="Keybind 3">
                 <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/3.png" alt="Keybind 3" loading="lazy" onerror="this.style.display='none'" />
                 <div class="label">Keybind 3</div>
             </div>
-            <div class="keybind-item">
+            <div class="keybind-item" data-src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/4.png" data-label="Keybind 4">
                 <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/4.png" alt="Keybind 4" loading="lazy" onerror="this.style.display='none'" />
                 <div class="label">Keybind 4</div>
             </div>
-            <div class="keybind-item">
+            <div class="keybind-item" data-src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/5.png" data-label="Keybind 5">
                 <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/5.png" alt="Keybind 5" loading="lazy" onerror="this.style.display='none'" />
                 <div class="label">Keybind 5</div>
             </div>
-            <div class="keybind-item">
+            <div class="keybind-item" data-src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/6.png" data-label="Keybind 6">
                 <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/6.png" alt="Keybind 6" loading="lazy" onerror="this.style.display='none'" />
                 <div class="label">Keybind 6</div>
             </div>
-            <div class="keybind-item">
+            <div class="keybind-item" data-src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/7.png" data-label="Keybind 7">
                 <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/7.png" alt="Keybind 7" loading="lazy" onerror="this.style.display='none'" />
                 <div class="label">Keybind 7</div>
             </div>
@@ -642,5 +802,63 @@
         </footer>
 
     </div>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <img id="lightboxImg" src="" alt="Keybind preview" />
+            <div class="lightbox-label" id="lightboxLabel">Keybind</div>
+        </div>
+    </div>
+
+    <script>
+        // ----- LIGHTBOX FUNCTIONALITY -----
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxLabel = document.getElementById('lightboxLabel');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        // Get all keybind items
+        const keybindItems = document.querySelectorAll('.keybind-item');
+
+        // Open lightbox when clicking a keybind item
+        keybindItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                const src = this.dataset.src;
+                const label = this.dataset.label;
+                
+                if (src) {
+                    lightboxImg.src = src;
+                    lightboxLabel.textContent = label || 'Keybind';
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                }
+            });
+        });
+
+        // Close lightbox functions
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+
+        // Close when clicking outside the image (on the overlay)
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    </script>
+
 </body>
 </html>
