@@ -55,20 +55,6 @@
             opacity: 0.3;
         }
 
-        .badge {
-            display: inline-block;
-            background: rgba(255, 70, 120, 0.15);
-            color: #ff4d7a;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 0.4rem 1.2rem;
-            border-radius: 100px;
-            border: 1px solid rgba(255, 70, 120, 0.2);
-            margin-bottom: 1.2rem;
-        }
-
         .hero h1 {
             font-size: 3.8rem;
             font-weight: 800;
@@ -87,12 +73,31 @@
             background-clip: text;
         }
 
+        .hero .rank-badge {
+            display: inline-block;
+            background: rgba(0, 180, 255, 0.10);
+            color: #00b4ff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.4rem 1.4rem;
+            border-radius: 100px;
+            border: 1px solid rgba(0, 180, 255, 0.15);
+            margin-top: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero .rank-badge i {
+            margin-right: 6px;
+            color: #ffd700;
+        }
+
         .hero p {
             color: #8892a8;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-top: 0.8rem;
-            max-width: 500px;
+            max-width: 550px;
             letter-spacing: 0.3px;
+            line-height: 1.6;
         }
 
         .hero .repo-link {
@@ -436,9 +441,14 @@
 
         <!-- ===== HERO ===== -->
         <header class="hero">
-            <div class="badge"><i class="fas fa-crosshairs" style="margin-right: 6px;"></i> Pro Config</div>
             <h1>Sempoi<span>Punya</span></h1>
-            <p>VALORANT settings &amp; keybinds — built for precision, speed, and dominance.</p>
+            <div class="rank-badge">
+                <i class="fas fa-trophy"></i> Peak: Platinum 3
+            </div>
+            <p>
+                Just a personal reference page so I don't forget my keybinds &amp; settings — 
+                especially when I play on someone else's account or someone plays on mine.
+            </p>
             <a class="repo-link" href="https://github.com/ImanDahliaa/valorant-settings" target="_blank">
                 <i class="fab fa-github"></i> View on GitHub
                 <i class="fas fa-arrow-right" style="font-size: 0.7rem; opacity: 0.6;"></i>
@@ -456,7 +466,7 @@
             <div class="card">
                 <i class="fas fa-laptop device-icon"></i>
                 <div class="card-label">Laptop</div>
-                <div class="card-value" style="font-size: 1.1rem;">Raven SE V 2020</div>
+                <div class="card-value" style="font-size: 1.0rem;">Illegear Raven SE V 2020</div>
                 <div class="sub">Gaming Laptop</div>
             </div>
             <div class="card">
@@ -624,7 +634,7 @@
         <footer class="footer">
             <span>© 2026 SempoiPunya. All rights reserved.</span>
             <span style="color: #4e5d73; font-size: 0.75rem;">
-                Built for personal reference · <i class="fas fa-bolt" style="color: #ff4d7a;"></i> pro config
+                Personal reference · <i class="fas fa-bolt" style="color: #ff4d7a;"></i> Platinum 3
             </span>
             <div class="socials">
                 <a href="https://github.com/ImanDahliaa" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
