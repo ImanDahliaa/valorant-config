@@ -167,6 +167,13 @@
             margin-bottom: 2.5rem;
         }
 
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
         /* ----- CARDS ----- */
         .card {
             background: rgba(255, 255, 255, 0.03);
@@ -210,6 +217,13 @@
             font-size: 0.85rem;
             color: #8892a8;
             margin-top: 0.2rem;
+        }
+
+        .card .device-icon {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+            display: block;
+            color: #ff4d7a;
         }
 
         /* ----- CROSSHAIR CARD (special) ----- */
@@ -312,7 +326,6 @@
             text-align: center;
             color: #6b7a93;
             background: rgba(0, 0, 0, 0.3);
-            letter-spacing: 0.5px;
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
@@ -360,6 +373,9 @@
             .grid-4 {
                 grid-template-columns: 1fr 1fr;
             }
+            .grid-5 {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
         }
 
         @media (max-width: 640px) {
@@ -371,6 +387,9 @@
             }
             .grid-4 {
                 grid-template-columns: 1fr;
+            }
+            .grid-5 {
+                grid-template-columns: 1fr 1fr;
             }
             .crosshair-card {
                 flex-direction: column;
@@ -425,6 +444,52 @@
                 <i class="fas fa-arrow-right" style="font-size: 0.7rem; opacity: 0.6;"></i>
             </a>
         </header>
+
+        <!-- ===== DEVICE SPECIFICATIONS ===== -->
+        <div class="section-title">
+            <i class="fas fa-desktop"></i>
+            <span>My Rig</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="grid-5">
+            <div class="card">
+                <i class="fas fa-laptop device-icon"></i>
+                <div class="card-label">Laptop</div>
+                <div class="card-value" style="font-size: 1.1rem;">Raven SE V 2020</div>
+                <div class="sub">Gaming Laptop</div>
+            </div>
+            <div class="card">
+                <i class="fas fa-microchip device-icon"></i>
+                <div class="card-label">CPU</div>
+                <div class="card-value" style="font-size: 1.1rem;">Intel Core i7-10750H</div>
+                <div class="sub">2.6 GHz · 6 Cores</div>
+            </div>
+            <div class="card">
+                <i class="fas fa-memory device-icon"></i>
+                <div class="card-label">RAM</div>
+                <div class="card-value" style="font-size: 1.1rem;">32 GB DDR4</div>
+                <div class="sub">2933 MHz</div>
+            </div>
+            <div class="card">
+                <i class="fas fa-gamepad device-icon"></i>
+                <div class="card-label">GPU</div>
+                <div class="card-value" style="font-size: 1.1rem;">GTX 1650 Ti</div>
+                <div class="sub">4 GB VRAM</div>
+            </div>
+            <div class="card">
+                <i class="fas fa-mouse device-icon"></i>
+                <div class="card-label">Mouse</div>
+                <div class="card-value" style="font-size: 1.1rem;">G PRO X Superlight</div>
+                <div class="sub">V1 · 63g</div>
+            </div>
+            <div class="card">
+                <i class="fas fa-keyboard device-icon"></i>
+                <div class="card-label">Keyboard</div>
+                <div class="card-value" style="font-size: 1.0rem;">Attack Shark R82 HE</div>
+                <div class="sub">Rapid Trigger</div>
+            </div>
+        </div>
 
         <!-- ===== MOUSE SETTINGS ===== -->
         <div class="section-title">
@@ -563,8 +628,6 @@
             </span>
             <div class="socials">
                 <a href="https://github.com/ImanDahliaa" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" target="_blank" title="Twitch"><i class="fab fa-twitch"></i></a>
             </div>
         </footer>
 
