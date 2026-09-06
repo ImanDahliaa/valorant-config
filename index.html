@@ -1,1 +1,573 @@
-Add VALORANT settings page
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ImanDahliaa · VALORANT Settings</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ----- RESET & BASE ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b0e14;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #e8edf5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            background-image: radial-gradient(ellipse at 20% 50%, rgba(255, 70, 120, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 180, 255, 0.05) 0%, transparent 50%);
+        }
+
+        /* ----- MAIN CONTAINER ----- */
+        .container {
+            max-width: 1300px;
+            width: 100%;
+        }
+
+        /* ----- HEADER / HERO ----- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2.5rem 0 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff4d7a, #00b4ff, transparent);
+            opacity: 0.3;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 70, 120, 0.15);
+            color: #ff4d7a;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.4rem 1.2rem;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 70, 120, 0.2);
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 0%, #b0c4de 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #ff4d7a, #ff8a5c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            color: #8892a8;
+            font-size: 1.1rem;
+            margin-top: 0.8rem;
+            max-width: 500px;
+            letter-spacing: 0.3px;
+        }
+
+        .hero .repo-link {
+            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.6rem 1.4rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #a8b5c9;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .hero .repo-link i {
+            color: #ff4d7a;
+        }
+
+        .hero .repo-link:hover {
+            background: rgba(255, 70, 120, 0.08);
+            border-color: rgba(255, 70, 120, 0.25);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* ----- SECTION TITLES ----- */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.8rem;
+            letter-spacing: -0.3px;
+        }
+
+        .section-title i {
+            color: #ff4d7a;
+            font-size: 1.3rem;
+            width: 2rem;
+            text-align: center;
+        }
+
+        .section-title .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent);
+        }
+
+        /* ----- GRID LAYOUT ----- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* ----- CARDS ----- */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.6rem 1.8rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 70, 120, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6b7a93;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f0f4ff;
+        }
+
+        .card-value small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #8892a8;
+            margin-left: 0.3rem;
+        }
+
+        .card .sub {
+            font-size: 0.85rem;
+            color: #8892a8;
+            margin-top: 0.2rem;
+        }
+
+        /* ----- CROSSHAIR CARD (special) ----- */
+        .crosshair-card {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.8rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .crosshair-code {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 0.7rem 1.2rem;
+            border-radius: 12px;
+            color: #b8d0f0;
+            word-break: break-all;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .crosshair-preview {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .crosshair-dot {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .crosshair-dot .dot {
+            width: 12px;
+            height: 12px;
+            background: #00e5ff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        }
+
+        .crosshair-meta {
+            font-size: 0.85rem;
+            color: #8892a8;
+        }
+
+        .crosshair-meta strong {
+            color: #e8edf5;
+        }
+
+        /* ----- KEYBINDS (screenshots) ----- */
+        .keybinds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .keybind-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            overflow: hidden;
+            transition: all 0.25s ease;
+            aspect-ratio: 16 / 10;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .keybind-item:hover {
+            border-color: rgba(255, 70, 120, 0.2);
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .keybind-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #141a22;
+        }
+
+        .keybind-item .label {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.7rem;
+            text-align: center;
+            color: #6b7a93;
+            background: rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* ----- FOOTER ----- */
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #4e5d73;
+        }
+
+        .footer a {
+            color: #6b7a93;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #ff4d7a;
+        }
+
+        .footer .socials {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .footer .socials i {
+            font-size: 1.1rem;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 1024px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid-4 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .crosshair-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .crosshair-preview {
+                justify-content: center;
+            }
+            .keybinds-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* small extra touch */
+        .glow-text {
+            color: #ff4d7a;
+        }
+        .text-muted {
+            color: #6b7a93;
+        }
+
+        /* scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0e14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a3440;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f4d5e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== HERO ===== -->
+        <header class="hero">
+            <div class="badge"><i class="fas fa-crosshairs" style="margin-right: 6px;"></i> Pro Config</div>
+            <h1>Iman<span>Dahliaa</span></h1>
+            <p>VALORANT settings &amp; keybinds — built for precision, speed, and dominance.</p>
+            <a class="repo-link" href="https://github.com/ImanDahliaa/valorant-settings" target="_blank">
+                <i class="fab fa-github"></i> View on GitHub
+                <i class="fas fa-arrow-right" style="font-size: 0.7rem; opacity: 0.6;"></i>
+            </a>
+        </header>
+
+        <!-- ===== MOUSE SETTINGS ===== -->
+        <div class="section-title">
+            <i class="fas fa-mouse"></i>
+            <span>Mouse Settings</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="grid-4">
+            <div class="card">
+                <div class="card-label">DPI</div>
+                <div class="card-value">1600</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Sensitivity</div>
+                <div class="card-value">0.17</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Scoped Sens</div>
+                <div class="card-value">1.1</div>
+            </div>
+            <div class="card">
+                <div class="card-label">ADS Multiplier</div>
+                <div class="card-value">1.0</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Polling Rate</div>
+                <div class="card-value">1000 <small>Hz</small></div>
+            </div>
+            <div class="card">
+                <div class="card-label">Angle Snap</div>
+                <div class="card-value" style="color: #00e5ff;">ON</div>
+            </div>
+            <div class="card" style="grid-column: span 2;">
+                <div class="card-label">Effective DPI (eDPI)</div>
+                <div class="card-value">272 <small>1600 × 0.17</small></div>
+                <div class="sub">Low sensitivity for precise micro-adjustments</div>
+            </div>
+        </div>
+
+        <!-- ===== CROSSHAIR ===== -->
+        <div class="section-title" style="margin-top: 1rem;">
+            <i class="fas fa-crosshairs"></i>
+            <span>Crosshair</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="crosshair-card">
+            <div>
+                <div style="font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: #6b7a93; margin-bottom: 0.3rem;">
+                    <i class="fas fa-code" style="margin-right: 6px;"></i> Crosshair Code
+                </div>
+                <div class="crosshair-code">
+                    0;p;0;c;1;s;1;P;c;1;u;F88CCCFF;o;0.22;m;1;0t;1;0l;3;0v;3;0o;1;0a;1;0f;0;1b;0;A;c;7;u;F88CCCFF;h;0;d;1;0b;0;1o;0;1a;1;1m;0;1f;0;S;b;1;c;8;t;F88CCCFF;o;1
+                </div>
+            </div>
+            <div class="crosshair-preview">
+                <div class="crosshair-dot">
+                    <div class="dot"></div>
+                </div>
+                <div class="crosshair-meta">
+                    <div><strong>Color:</strong> <span style="color: #00e5ff;">Cyan</span></div>
+                    <div><strong>Style:</strong> Dot + Cross</div>
+                    <div><strong>Outline:</strong> On</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== VIDEO SETTINGS ===== -->
+        <div class="section-title" style="margin-top: 2rem;">
+            <i class="fas fa-tv"></i>
+            <span>Video Settings</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-label">Resolution</div>
+                <div class="card-value">1440 × 1080</div>
+                <div class="sub">4:3 stretched</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Display Mode</div>
+                <div class="card-value">Fullscreen</div>
+            </div>
+            <div class="card">
+                <div class="card-label">Graphics Quality</div>
+                <div class="card-value" style="color: #ff8a5c;">Low</div>
+                <div class="sub">Max FPS · competitive focus</div>
+            </div>
+        </div>
+
+        <!-- ===== KEYBINDS ===== -->
+        <div class="section-title" style="margin-top: 1rem;">
+            <i class="fas fa-keyboard"></i>
+            <span>Keybinds</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="keybinds-grid">
+            <div class="keybind-item">
+                <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/1.png" alt="Keybind 1" loading="lazy" onerror="this.style.display='none'" />
+                <div class="label">Keybind 1</div>
+            </div>
+            <div class="keybind-item">
+                <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/2.png" alt="Keybind 2" loading="lazy" onerror="this.style.display='none'" />
+                <div class="label">Keybind 2</div>
+            </div>
+            <div class="keybind-item">
+                <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/3.png" alt="Keybind 3" loading="lazy" onerror="this.style.display='none'" />
+                <div class="label">Keybind 3</div>
+            </div>
+            <div class="keybind-item">
+                <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/4.png" alt="Keybind 4" loading="lazy" onerror="this.style.display='none'" />
+                <div class="label">Keybind 4</div>
+            </div>
+            <div class="keybind-item">
+                <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/5.png" alt="Keybind 5" loading="lazy" onerror="this.style.display='none'" />
+                <div class="label">Keybind 5</div>
+            </div>
+            <div class="keybind-item">
+                <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/6.png" alt="Keybind 6" loading="lazy" onerror="this.style.display='none'" />
+                <div class="label">Keybind 6</div>
+            </div>
+            <div class="keybind-item">
+                <img src="https://raw.githubusercontent.com/ImanDahliaa/valorant-settings/main/Screenshots/7.png" alt="Keybind 7" loading="lazy" onerror="this.style.display='none'" />
+                <div class="label">Keybind 7</div>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <span>© 2026 Iman. All rights reserved.</span>
+            <span style="color: #4e5d73; font-size: 0.75rem;">
+                Built for personal reference · <i class="fas fa-bolt" style="color: #ff4d7a;"></i> pro config
+            </span>
+            <div class="socials">
+                <a href="https://github.com/ImanDahliaa" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank" title="Twitch"><i class="fab fa-twitch"></i></a>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>
